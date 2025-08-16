@@ -140,15 +140,10 @@ const InteractiveMap: React.FC = () => {
 
     // Add bus stops when map loads
     map.current.on('load', () => {
-      // Add bus stops
-      busStops.forEach((stop) => {
-        const crowdingColor = {
-          low: '#10B981',
-          medium: '#F59E0B',
-          high: '#EF4444'
-        }[stop.crowdingLevel];
+      // Add only high-crowding bus stops
+      busStops.filter(s => s.crowdingLevel === 'high').forEach((stop) => {
+        const crowdingColor = '#EF4444';
 
-        // Create custom marker
         const markerDiv = document.createElement('div');
         markerDiv.className = 'bus-stop-marker';
         markerDiv.style.cssText = `
@@ -170,7 +165,7 @@ const InteractiveMap: React.FC = () => {
           markerDiv.style.transform = 'scale(1)';
         });
 
-        const marker = new mapboxgl.Marker(markerDiv)
+        new mapboxgl.Marker(markerDiv)
           .setLngLat(stop.coordinates)
           .addTo(map.current!);
 
@@ -236,12 +231,12 @@ const InteractiveMap: React.FC = () => {
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <Badge className="mb-4">Live Transit Map</Badge>
+          <Badge className="mb-4">Live Crowding Map</Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Real-Time Transit Monitoring
+            Crowded Routes & Stops Now
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Track live bus locations, crowding levels, and wait times across the entire network.
+            View routes and stops experiencing high crowding in real time.
           </p>
         </div>
 
@@ -250,7 +245,7 @@ const InteractiveMap: React.FC = () => {
           <div className="lg:col-span-2">
             <Card className="p-6 shadow-elegant">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Live Transit Map</h3>
+                <h3 className="text-lg font-semibold">Live Map</h3>
                 <div className="flex gap-2">
                   <Badge variant="outline" className="bg-transit-green/10 text-transit-green border-transit-green/20">
                     <Navigation className="w-3 h-3 mr-1" />
@@ -263,14 +258,6 @@ const InteractiveMap: React.FC = () => {
               
               {/* Map Legend */}
               <div className="flex flex-wrap gap-4 mt-4 p-3 bg-background/50 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-transit-green"></div>
-                  <span className="text-sm">Low Crowding</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full bg-transit-orange"></div>
-                  <span className="text-sm">Medium Crowding</span>
-                </div>
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 rounded-full bg-red-500"></div>
                   <span className="text-sm">High Crowding</span>
@@ -307,9 +294,6 @@ const InteractiveMap: React.FC = () => {
                     <span className="font-medium text-transit-green">{selectedStop.nextBusArrival}</span>
                   </div>
                 </div>
-                <Button variant="outline" size="sm" className="w-full mt-4">
-                  View Schedule
-                </Button>
               </Card>
             )}
 
@@ -374,25 +358,6 @@ const InteractiveMap: React.FC = () => {
                      busStops.reduce((acc, stop) => acc + stop.waitingPassengers, 0)}
                   </span>
                 </div>
-              </div>
-            </Card>
-
-            {/* Quick Actions */}
-            <Card className="p-6 shadow-soft">
-              <h4 className="font-semibold text-foreground mb-4">Quick Actions</h4>
-              <div className="space-y-2">
-                <Button variant="ghost" size="sm" className="w-full justify-start">
-                  <AlertTriangle className="w-4 h-4 mr-2" />
-                  Report Issue
-                </Button>
-                <Button variant="ghost" size="sm" className="w-full justify-start">
-                  <Clock className="w-4 h-4 mr-2" />
-                  Schedule Alert
-                </Button>
-                <Button variant="ghost" size="sm" className="w-full justify-start">
-                  <Navigation className="w-4 h-4 mr-2" />
-                  Route Planner
-                </Button>
               </div>
             </Card>
           </div>

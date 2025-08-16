@@ -6,13 +6,7 @@ import { useState } from "react";
 const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navItems = [
-    { label: "Platform", href: "#platform" },
-    { label: "Features", href: "#features" },
-    { label: "Analytics", href: "#analytics" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "Resources", href: "#resources" }
-  ];
+  const navItems = [] as const;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-border/50">
@@ -30,27 +24,10 @@ const NavigationBar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
+          <div className="hidden md:flex items-center space-x-8"></div>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm">
-              Sign In
-            </Button>
-            <Button variant="transit" size="sm">
-              Start Free Trial
-            </Button>
-          </div>
+          <div className="hidden md:flex items-center gap-3"></div>
 
           {/* Mobile Menu Button */}
           <Button
@@ -66,26 +43,7 @@ const NavigationBar = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden border-t border-border/50 bg-white/95 backdrop-blur-lg">
-            <div className="py-4 space-y-3">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="block px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-              <div className="flex flex-col gap-2 px-4 pt-4 border-t border-border/20">
-                <Button variant="ghost" size="sm" className="w-full justify-start">
-                  Sign In
-                </Button>
-                <Button variant="transit" size="sm" className="w-full">
-                  Start Free Trial
-                </Button>
-              </div>
-            </div>
+            <div className="py-4 space-y-3"></div>
           </div>
         )}
       </div>

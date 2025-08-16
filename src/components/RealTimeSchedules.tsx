@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { Input } from '@/components/ui/input';
 import { 
   Clock, 
   MapPin, 
@@ -41,6 +42,7 @@ const RealTimeSchedules: React.FC = () => {
   const [schedules, setSchedules] = useState<StopSchedule[]>([]);
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   const [autoUpdate, setAutoUpdate] = useState(true);
+  const [query, setQuery] = useState('');
 
   // Generate realistic schedule data
   useEffect(() => {
@@ -72,6 +74,20 @@ const RealTimeSchedules: React.FC = () => {
           stopId: 'BS004',
           stopName: 'Halte Blok M',
           averageWaitTime: 9.8,
+          crowdingLevel: 'medium',
+          arrivals: []
+        },
+        {
+          stopId: 'BS005',
+          stopName: 'Halte Kuningan',
+          averageWaitTime: 11.1,
+          crowdingLevel: 'low',
+          arrivals: []
+        },
+        {
+          stopId: 'BS006',
+          stopName: 'Halte Kota',
+          averageWaitTime: 10.4,
           crowdingLevel: 'medium',
           arrivals: []
         }
@@ -150,6 +166,10 @@ const RealTimeSchedules: React.FC = () => {
   }, [autoUpdate]);
 
   const selectedStopData = schedules.find(s => s.stopId === selectedStop);
+  const filteredStops = schedules.filter(s =>
+    s.stopName.toLowerCase().includes(query.toLowerCase()) ||
+    s.stopId.toLowerCase().includes(query.toLowerCase())
+  );
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -190,13 +210,13 @@ const RealTimeSchedules: React.FC = () => {
         <div className="text-center mb-12">
           <Badge className="mb-4">
             <Zap className="w-3 h-3 mr-1" />
-            Real-Time Updates
+            Live Schedule Crowding
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Live Schedule Tracking
+            Stop Schedules & Crowding
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            AI-powered arrival predictions with GPS tracking and passenger counting for accurate schedules.
+            Search any stop to view upcoming arrivals and crowding levels.
           </p>
         </div>
 
@@ -205,8 +225,14 @@ const RealTimeSchedules: React.FC = () => {
           <div>
             <Card className="p-6 shadow-soft">
               <h3 className="font-semibold text-foreground mb-4">Select Stop</h3>
-              <div className="space-y-2">
-                {schedules.map((stop) => (
+              <Input
+                placeholder="Search by name or ID..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="mb-3"
+              />
+              <div className="space-y-2 max-h-[420px] overflow-auto">
+                {filteredStops.map((stop) => (
                   <button
                     key={stop.stopId}
                     onClick={() => setSelectedStop(stop.stopId)}
@@ -223,6 +249,9 @@ const RealTimeSchedules: React.FC = () => {
                     </div>
                   </button>
                 ))}
+                {filteredStops.length === 0 && (
+                  <div className="text-sm text-muted-foreground">No stops found</div>
+                )}
               </div>
             </Card>
 

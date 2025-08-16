@@ -125,7 +125,11 @@ const InteractiveMap: React.FC = () => {
     if (!mapContainer.current) return;
 
     // Initialize map centered on Jakarta
-    mapboxgl.accessToken = 'pk.eyJ1IjoidHJhbnNpdG9wdGltbyIsImEiOiJjbTEyZWtqb3AwMm9nMmtwNGNvbHF3dWNzIn0.sample_token_replace_with_real';
+    const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN as string | undefined;
+    if (!mapboxToken) {
+      console.warn('VITE_MAPBOX_TOKEN is not set. Map may not load correctly.');
+    }
+    mapboxgl.accessToken = mapboxToken || '';
     
     map.current = new mapboxgl.Map({
       container: mapContainer.current,

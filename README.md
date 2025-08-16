@@ -63,3 +63,21 @@ Yes, you can!
 
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
+## Environment
+
+Set your Mapbox token in a `.env` file at the project root:
+
+```
+VITE_MAPBOX_TOKEN=your_mapbox_access_token
+```
+
+## Data required for accuracy
+
+- GTFS static: routes.txt, stops.txt, trips.txt, stop_times.txt
+- GTFS-Realtime: TripUpdates, VehiclePositions, ServiceAlerts
+- AVL GPS feed: vehicle_id, latitude, longitude, timestamp, heading
+- APC counts: boardings and alightings per stop event to estimate occupancy
+- Historical ridership: stop/route/time-of-day for model training
+- Traffic/incidents: congestion indices, closures, incidents affecting service
+- Model metrics: MAE, RMSE, MAPE tracked per version/time window
+

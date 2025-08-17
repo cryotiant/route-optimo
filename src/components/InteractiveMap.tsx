@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import maplibregl from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -34,7 +34,7 @@ interface LiveBus {
 
 const InteractiveMap: React.FC = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
+  const map = useRef<maplibregl.Map | null>(null);
   const [selectedStop, setSelectedStop] = useState<BusStop | null>(null);
   const [selectedBus, setSelectedBus] = useState<LiveBus | null>(null);
   const [busStops, setBusStops] = useState<BusStop[]>([]);
@@ -124,23 +124,22 @@ const InteractiveMap: React.FC = () => {
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    // Initialize map centered on Jakarta
-    const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN as string | undefined;
-    if (!mapboxToken) {
-      console.warn('VITE_MAPBOX_TOKEN is not set. Map may not load correctly.');
-    }
-    mapboxgl.accessToken = mapboxToken || '';
-    
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/light-v11',
-      center: [106.8270, -6.2088], // Jakarta center
-      zoom: 11,
-      pitch: 30,
-    });
+    // Initialize map centered on Jakarta (no token required with MapLibre)
+    try {
+      map.current = new maplibregl.Map({
+        container: mapContainer.current,
+        style: 'https://demotiles.maplibre.org/style.json',
+        center: [106.8270, -6.2088],
+        zoom: 11,
+        pitch: 30,
+      });
 
-    // Add navigation controls
-    map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+      // Add navigation controls
+      map.current.addControl(new maplibregl.NavigationControl(), 'top-right');
+    } catch (e) {
+      console.error('Failed to initialize MapLibre map:', e);
+      return;
+    }
 
     // Add bus stops when map loads
     map.current.on('load', () => {
@@ -169,7 +168,7 @@ const InteractiveMap: React.FC = () => {
           markerDiv.style.transform = 'scale(1)';
         });
 
-        new mapboxgl.Marker(markerDiv)
+        new maplibregl.Marker({ element: markerDiv })
           .setLngLat(stop.coordinates)
           .addTo(map.current!);
 
@@ -206,7 +205,7 @@ const InteractiveMap: React.FC = () => {
           </div>
         `;
 
-        const busMarker = new mapboxgl.Marker(busMarkerDiv)
+        const busMarker = new maplibregl.Marker({ element: busMarkerDiv })
           .setLngLat(bus.coordinates)
           .addTo(map.current!);
 

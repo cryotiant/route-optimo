@@ -127,20 +127,25 @@ const InteractiveMap: React.FC = () => {
     // Initialize map centered on Jakarta
     const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN as string | undefined;
     if (!mapboxToken) {
-      console.warn('VITE_MAPBOX_TOKEN is not set. Map may not load correctly.');
+      console.warn('VITE_MAPBOX_TOKEN is not set. Skipping map initialization.');
+      return;
     }
-    mapboxgl.accessToken = mapboxToken || '';
-    
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/light-v11',
-      center: [106.8270, -6.2088], // Jakarta center
-      zoom: 11,
-      pitch: 30,
-    });
+    try {
+      mapboxgl.accessToken = mapboxToken;
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/light-v11',
+        center: [106.8270, -6.2088], // Jakarta center
+        zoom: 11,
+        pitch: 30,
+      });
 
-    // Add navigation controls
-    map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+      // Add navigation controls
+      map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    } catch (e) {
+      console.error('Failed to initialize Mapbox map:', e);
+      return;
+    }
 
     // Add bus stops when map loads
     map.current.on('load', () => {

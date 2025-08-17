@@ -65,11 +65,7 @@ To connect a domain, navigate to Project > Settings > Domains and click Connect 
 
 ## Environment
 
-Set your Mapbox token in a `.env` file at the project root:
-
-```
-VITE_MAPBOX_TOKEN=your_mapbox_access_token
-```
+No API keys required. Map rendering uses MapLibre GL with open tiles.
 
 ## Data required for accuracy
 

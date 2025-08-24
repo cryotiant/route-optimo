@@ -1,0 +1,212 @@
+{
+  "stops": [
+    {
+      "stop_id": "BLK_M",
+      "stop_name": "Halte Blok M",
+      "stop_lat": -6.2441,
+      "stop_lon": 106.7973,
+      "stop_desc": "Terminal Blok M - Koridor 1, 8",
+      "zone_id": "JAKSEL"
+    },
+    {
+      "stop_id": "SENAYAN",
+      "stop_name": "Halte Senayan",
+      "stop_lat": -6.2297,
+      "stop_lon": 106.8019,
+      "stop_desc": "Gelora Bung Karno - Koridor 1",
+      "zone_id": "JAKPUS"
+    },
+    {
+      "stop_id": "BUNDARAN_HI",
+      "stop_name": "Halte Bundaran HI",
+      "stop_lat": -6.1957,
+      "stop_lon": 106.8236,
+      "stop_desc": "Hotel Indonesia Roundabout - Koridor 1",
+      "zone_id": "JAKPUS"
+    },
+    {
+      "stop_id": "MONAS",
+      "stop_name": "Halte Monas",
+      "stop_lat": -6.1751,
+      "stop_lon": 106.8270,
+      "stop_desc": "Monumen Nasional - Koridor 1, 2, 3",
+      "zone_id": "JAKPUS"
+    },
+    {
+      "stop_id": "KOTA",
+      "stop_name": "Halte Kota",
+      "stop_lat": -6.1376,
+      "stop_lon": 106.8149,
+      "stop_desc": "Kota Tua - Koridor 1",
+      "zone_id": "JAKUT"
+    },
+    {
+      "stop_id": "PULOGADUNG",
+      "stop_name": "Halte Pulogadung",
+      "stop_lat": -6.1856,
+      "stop_lon": 106.9189,
+      "stop_desc": "Terminal Pulogadung - Koridor 2, 4",
+      "zone_id": "JAKTIM"
+    },
+    {
+      "stop_id": "HARMONI",
+      "stop_name": "Halte Harmoni",
+      "stop_lat": -6.1754,
+      "stop_lon": 106.8229,
+      "stop_desc": "Harmoni Central - Koridor 1, 2, 3, 8",
+      "zone_id": "JAKPUS"
+    },
+    {
+      "stop_id": "KALIDERES",
+      "stop_name": "Halte Kalideres",
+      "stop_lat": -6.1589,
+      "stop_lon": 106.7176,
+      "stop_desc": "Terminal Kalideres - Koridor 3",
+      "zone_id": "JAKBAR"
+    },
+    {
+      "stop_id": "GROGOL",
+      "stop_name": "Halte Grogol",
+      "stop_lat": -6.1589,
+      "stop_lon": 106.7876,
+      "stop_desc": "Grogol - Koridor 3",
+      "zone_id": "JAKBAR"
+    },
+    {
+      "stop_id": "DUKUH_ATAS",
+      "stop_name": "Halte Dukuh Atas",
+      "stop_lat": -6.1957,
+      "stop_lon": 106.8236,
+      "stop_desc": "Dukuh Atas - Koridor 4, 6",
+      "zone_id": "JAKPUS"
+    },
+    {
+      "stop_id": "KAMPUNG_MELAYU",
+      "stop_name": "Halte Kampung Melayu",
+      "stop_lat": -6.2189,
+      "stop_lon": 106.8576,
+      "stop_desc": "Terminal Kampung Melayu - Koridor 5, 7",
+      "zone_id": "JAKTIM"
+    },
+    {
+      "stop_id": "ANCOL",
+      "stop_name": "Halte Ancol",
+      "stop_lat": -6.1376,
+      "stop_lon": 106.8149,
+      "stop_desc": "Taman Impian Jaya Ancol - Koridor 5",
+      "zone_id": "JAKUT"
+    },
+    {
+      "stop_id": "RAGUNAN",
+      "stop_name": "Halte Ragunan",
+      "stop_lat": -6.2957,
+      "stop_lon": 106.8236,
+      "stop_desc": "Taman Margasatwa Ragunan - Koridor 6",
+      "zone_id": "JAKSEL"
+    },
+    {
+      "stop_id": "KUNINGAN",
+      "stop_name": "Halte Kuningan",
+      "stop_lat": -6.2382,
+      "stop_lon": 106.8317,
+      "stop_desc": "Kuningan - Koridor 6",
+      "zone_id": "JAKSEL"
+    },
+    {
+      "stop_id": "KAMPUNG_RAMBUTAN",
+      "stop_name": "Halte Kampung Rambutan",
+      "stop_lat": -6.2957,
+      "stop_lon": 106.8576,
+      "stop_desc": "Terminal Kampung Rambutan - Koridor 7",
+      "zone_id": "JAKTIM"
+    },
+    {
+      "stop_id": "CILILITAN",
+      "stop_name": "Halte Cililitan",
+      "stop_lat": -6.2589,
+      "stop_lon": 106.8576,
+      "stop_desc": "Cililitan - Koridor 7, 9, 10",
+      "zone_id": "JAKTIM"
+    },
+    {
+      "stop_id": "LEBAK_BULUS",
+      "stop_name": "Halte Lebak Bulus",
+      "stop_lat": -6.2957,
+      "stop_lon": 106.7876,
+      "stop_desc": "Terminal Lebak Bulus - Koridor 8",
+      "zone_id": "JAKSEL"
+    },
+    {
+      "stop_id": "PINANG_RANTI",
+      "stop_name": "Halte Pinang Ranti",
+      "stop_lat": -6.2957,
+      "stop_lon": 106.8576,
+      "stop_desc": "Terminal Pinang Ranti - Koridor 9",
+      "zone_id": "JAKTIM"
+    },
+    {
+      "stop_id": "PLUIT",
+      "stop_name": "Halte Pluit",
+      "stop_lat": -6.1376,
+      "stop_lon": 106.7876,
+      "stop_desc": "Pluit - Koridor 9",
+      "zone_id": "JAKUT"
+    },
+    {
+      "stop_id": "TANJUNG_PRIOK",
+      "stop_name": "Halte Tanjung Priok",
+      "stop_lat": -6.0957,
+      "stop_lon": 106.8576,
+      "stop_desc": "Pelabuhan Tanjung Priok - Koridor 10",
+      "zone_id": "JAKUT"
+    },
+    {
+      "stop_id": "JATINEGARA",
+      "stop_name": "Halte Jatinegara",
+      "stop_lat": -6.2189,
+      "stop_lon": 106.8576,
+      "stop_desc": "Jatinegara - Koridor 5",
+      "zone_id": "JAKTIM"
+    },
+    {
+      "stop_id": "MANGARAI",
+      "stop_name": "Halte Manggarai",
+      "stop_lat": -6.2189,
+      "stop_lon": 106.8576,
+      "stop_desc": "Manggarai - Koridor 9",
+      "zone_id": "JAKPUS"
+    },
+    {
+      "stop_id": "PRAMUKA",
+      "stop_name": "Halte Pramuka",
+      "stop_lat": -6.2189,
+      "stop_lon": 106.8576,
+      "stop_desc": "Pramuka - Koridor 4, 10",
+      "zone_id": "JAKPUS"
+    },
+    {
+      "stop_id": "RAWAMANGUN",
+      "stop_name": "Halte Rawamangun",
+      "stop_lat": -6.1856,
+      "stop_lon": 106.8576,
+      "stop_desc": "Rawamangun - Koridor 2",
+      "zone_id": "JAKTIM"
+    },
+    {
+      "stop_id": "SUDIRMAN",
+      "stop_name": "Halte Sudirman",
+      "stop_lat": -6.2088,
+      "stop_lon": 106.8236,
+      "stop_desc": "Jalan Sudirman - Koridor 1",
+      "zone_id": "JAKPUS"
+    },
+    {
+      "stop_id": "THAMRIN",
+      "stop_name": "Halte Thamrin",
+      "stop_lat": -6.1957,
+      "stop_lon": 106.8236,
+      "stop_desc": "Jalan Thamrin - Koridor 1",
+      "zone_id": "JAKPUS"
+    }
+  ]
+}

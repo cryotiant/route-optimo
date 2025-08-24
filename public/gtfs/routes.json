@@ -1,0 +1,94 @@
+{
+  "routes": [
+    {
+      "route_id": "K1",
+      "route_short_name": "Koridor 1",
+      "route_long_name": "Blok M - Kota",
+      "route_desc": "Transjakarta Koridor 1: Blok M to Kota via Sudirman-Thamrin",
+      "route_type": 3,
+      "route_color": "FF0000",
+      "route_text_color": "FFFFFF"
+    },
+    {
+      "route_id": "K2",
+      "route_short_name": "Koridor 2",
+      "route_long_name": "Pulogadung - Harmoni",
+      "route_desc": "Transjakarta Koridor 2: Pulogadung to Harmoni via Rawamangun",
+      "route_type": 3,
+      "route_color": "00FF00",
+      "route_text_color": "000000"
+    },
+    {
+      "route_id": "K3",
+      "route_short_name": "Koridor 3",
+      "route_long_name": "Kalideres - Monas",
+      "route_desc": "Transjakarta Koridor 3: Kalideres to Monas via Grogol",
+      "route_type": 3,
+      "route_color": "0000FF",
+      "route_text_color": "FFFFFF"
+    },
+    {
+      "route_id": "K4",
+      "route_short_name": "Koridor 4",
+      "route_long_name": "Pulogadung - Dukuh Atas",
+      "route_desc": "Transjakarta Koridor 4: Pulogadung to Dukuh Atas via Pramuka",
+      "route_type": 3,
+      "route_color": "FFFF00",
+      "route_text_color": "000000"
+    },
+    {
+      "route_id": "K5",
+      "route_short_name": "Koridor 5",
+      "route_long_name": "Kampung Melayu - Ancol",
+      "route_desc": "Transjakarta Koridor 5: Kampung Melayu to Ancol via Jatinegara",
+      "route_type": 3,
+      "route_color": "FF00FF",
+      "route_text_color": "FFFFFF"
+    },
+    {
+      "route_id": "K6",
+      "route_short_name": "Koridor 6",
+      "route_long_name": "Ragunan - Dukuh Atas",
+      "route_desc": "Transjakarta Koridor 6: Ragunan to Dukuh Atas via Kuningan",
+      "route_type": 3,
+      "route_color": "00FFFF",
+      "route_text_color": "000000"
+    },
+    {
+      "route_id": "K7",
+      "route_short_name": "Koridor 7",
+      "route_long_name": "Kampung Rambutan - Kampung Melayu",
+      "route_desc": "Transjakarta Koridor 7: Kampung Rambutan to Kampung Melayu via Cililitan",
+      "route_type": 3,
+      "route_color": "800080",
+      "route_text_color": "FFFFFF"
+    },
+    {
+      "route_id": "K8",
+      "route_short_name": "Koridor 8",
+      "route_long_name": "Lebak Bulus - Harmoni",
+      "route_desc": "Transjakarta Koridor 8: Lebak Bulus to Harmoni via Blok M",
+      "route_type": 3,
+      "route_color": "FF8000",
+      "route_text_color": "FFFFFF"
+    },
+    {
+      "route_id": "K9",
+      "route_short_name": "Koridor 9",
+      "route_long_name": "Pinang Ranti - Pluit",
+      "route_desc": "Transjakarta Koridor 9: Pinang Ranti to Pluit via Manggarai",
+      "route_type": 3,
+      "route_color": "008000",
+      "route_text_color": "FFFFFF"
+    },
+    {
+      "route_id": "K10",
+      "route_short_name": "Koridor 10",
+      "route_long_name": "Cililitan - Tanjung Priok",
+      "route_desc": "Transjakarta Koridor 10: Cililitan to Tanjung Priok via Pramuka",
+      "route_type": 3,
+      "route_color": "800000",
+      "route_text_color": "FFFFFF"
+    }
+  ]
+}

@@ -1,0 +1,290 @@
+{
+  "stops": [
+    {
+      "id": "S001",
+      "name": "Pulogadung",
+      "location": {"lat": -6.2088, "lng": 106.8270},
+      "waiting_passengers": 95,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "high",
+      "prediction": "Next bus in 1 min",
+      "zone": "East Jakarta",
+      "description": "Terminal Pulogadung - Eastern terminus of Corridor 2"
+    },
+    {
+      "id": "S002",
+      "name": "TU Gas",
+      "location": {"lat": -6.2001, "lng": 106.8236},
+      "waiting_passengers": 65,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "medium",
+      "prediction": "Next bus in 3 mins",
+      "zone": "East Jakarta",
+      "description": "TU Gas stop - connecting to industrial area"
+    },
+    {
+      "id": "S003",
+      "name": "Velodrome",
+      "location": {"lat": -6.1956, "lng": 106.8226},
+      "waiting_passengers": 75,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "medium",
+      "prediction": "Next bus in 5 mins",
+      "zone": "East Jakarta",
+      "description": "Velodrome sports complex area"
+    },
+    {
+      "id": "S004",
+      "name": "Pemuda Rawamangun",
+      "location": {"lat": -6.1901, "lng": 106.8216},
+      "waiting_passengers": 85,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "high",
+      "prediction": "Next bus in 2 mins",
+      "zone": "East Jakarta",
+      "description": "Pemuda Rawamangun - university district"
+    },
+    {
+      "id": "S005",
+      "name": "Utan Kayu Rawamangun",
+      "location": {"lat": -6.1856, "lng": 106.8206},
+      "waiting_passengers": 55,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "medium",
+      "prediction": "Next bus in 7 mins",
+      "zone": "East Jakarta",
+      "description": "Utan Kayu Rawamangun residential area"
+    },
+    {
+      "id": "S006",
+      "name": "Pramuka BPKP",
+      "location": {"lat": -6.1811, "lng": 106.8196},
+      "waiting_passengers": 70,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "medium",
+      "prediction": "Next bus in 4 mins",
+      "zone": "Central Jakarta",
+      "description": "Pramuka BPKP - government office area"
+    },
+    {
+      "id": "S007",
+      "name": "Pramuka LIA",
+      "location": {"lat": -6.1766, "lng": 106.8186},
+      "waiting_passengers": 60,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "medium",
+      "prediction": "Next bus in 6 mins",
+      "zone": "Central Jakarta",
+      "description": "Pramuka LIA - language institute area"
+    },
+    {
+      "id": "S008",
+      "name": "Salemba Carolus",
+      "location": {"lat": -6.1721, "lng": 106.8176},
+      "waiting_passengers": 90,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "high",
+      "prediction": "Next bus in 2 mins",
+      "zone": "Central Jakarta",
+      "description": "Salemba Carolus - hospital and university area"
+    },
+    {
+      "id": "S009",
+      "name": "Senen",
+      "location": {"lat": -6.1676, "lng": 106.8166},
+      "waiting_passengers": 110,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "high",
+      "prediction": "Next bus in 1 min",
+      "zone": "Central Jakarta",
+      "description": "Senen - major shopping and transit hub"
+    },
+    {
+      "id": "S010",
+      "name": "Atrium Senen",
+      "location": {"lat": -6.1631, "lng": 106.8156},
+      "waiting_passengers": 80,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "medium",
+      "prediction": "Next bus in 3 mins",
+      "zone": "Central Jakarta",
+      "description": "Atrium Senen - shopping mall area"
+    },
+    {
+      "id": "S011",
+      "name": "RSPAD",
+      "location": {"lat": -6.1586, "lng": 106.8146},
+      "waiting_passengers": 45,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "low",
+      "prediction": "Next bus in 8 mins",
+      "zone": "Central Jakarta",
+      "description": "RSPAD - military hospital area"
+    },
+    {
+      "id": "S012",
+      "name": "Gambir 1",
+      "location": {"lat": -6.1541, "lng": 106.8136},
+      "waiting_passengers": 95,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "high",
+      "prediction": "Next bus in 2 mins",
+      "zone": "Central Jakarta",
+      "description": "Gambir 1 - train station area"
+    },
+    {
+      "id": "S013",
+      "name": "Monumen Nasional",
+      "location": {"lat": -6.1754, "lng": 106.8226},
+      "waiting_passengers": 120,
+      "service_lines": ["2"],
+      "corridor": "2",
+      "crowding": "high",
+      "prediction": "Next bus in 1 min",
+      "zone": "Central Jakarta",
+      "description": "Monumen Nasional - central landmark and western terminus"
+    }
+  ],
+  "routes": [
+    {
+      "id": "R002",
+      "name": "Koridor 2",
+      "short_name": "2",
+      "color": "FF8C00",
+      "text_color": "FFFFFF",
+      "corridor": "2",
+      "stops": ["S001", "S002", "S003", "S004", "S005", "S006", "S007", "S008", "S009", "S010", "S011", "S012", "S013"],
+      "coordinates": [
+        [106.8270, -6.2088],
+        [106.8236, -6.2001],
+        [106.8226, -6.1956],
+        [106.8216, -6.1901],
+        [106.8206, -6.1856],
+        [106.8196, -6.1811],
+        [106.8186, -6.1766],
+        [106.8176, -6.1721],
+        [106.8166, -6.1676],
+        [106.8156, -6.1631],
+        [106.8146, -6.1586],
+        [106.8136, -6.1541],
+        [106.8226, -6.1754]
+      ]
+    }
+  ],
+  "live_buses": [
+    {
+      "id": "BUS001",
+      "route": "2",
+      "coordinates": [106.8236, -6.2001],
+      "capacity": 150,
+      "occupancy": 120,
+      "delay": 2,
+      "speed": 28,
+      "route_color": "FF8C00",
+      "next_stop": "S002",
+      "eta": "3 min"
+    },
+    {
+      "id": "BUS002",
+      "route": "2",
+      "coordinates": [106.8196, -6.1811],
+      "capacity": 150,
+      "occupancy": 85,
+      "delay": 0,
+      "speed": 32,
+      "route_color": "FF8C00",
+      "next_stop": "S006",
+      "eta": "1 min"
+    },
+    {
+      "id": "BUS003",
+      "route": "2",
+      "coordinates": [106.8166, -6.1676],
+      "capacity": 150,
+      "occupancy": 95,
+      "delay": 1,
+      "speed": 30,
+      "route_color": "FF8C00",
+      "next_stop": "S009",
+      "eta": "2 min"
+    }
+  ],
+  "predictions": {
+    "crowding_forecast": {
+      "next_15min": {
+        "S001": "high",
+        "S002": "medium",
+        "S003": "medium",
+        "S004": "high",
+        "S005": "medium",
+        "S006": "medium",
+        "S007": "medium",
+        "S008": "high",
+        "S009": "high",
+        "S010": "medium",
+        "S011": "low",
+        "S012": "high",
+        "S013": "high"
+      },
+      "next_30min": {
+        "S001": "medium",
+        "S002": "low",
+        "S003": "low",
+        "S004": "medium",
+        "S005": "low",
+        "S006": "low",
+        "S007": "low",
+        "S008": "medium",
+        "S009": "medium",
+        "S010": "low",
+        "S011": "low",
+        "S012": "medium",
+        "S013": "medium"
+      }
+    },
+    "bus_arrival_times": {
+      "next_15min": {
+        "S001": "1 min",
+        "S002": "3 min",
+        "S003": "5 min",
+        "S004": "2 min",
+        "S005": "7 min",
+        "S006": "4 min",
+        "S007": "6 min",
+        "S008": "2 min",
+        "S009": "1 min",
+        "S010": "3 min",
+        "S011": "8 min",
+        "S012": "2 min",
+        "S013": "1 min"
+      },
+      "next_30min": {
+        "S001": "16 min",
+        "S002": "18 min",
+        "S003": "20 min",
+        "S004": "17 min",
+        "S005": "22 min",
+        "S006": "19 min",
+        "S007": "21 min",
+        "S008": "17 min",
+        "S009": "16 min",
+        "S010": "18 min",
+        "S011": "23 min",
+        "S012": "17 min",
+        "S013": "16 min"
+      }
+    }
+  }
+}

@@ -15,6 +15,8 @@ import {
   Users,
   Timer
 } from 'lucide-react';
+import { transjakartaJSONService } from '@/lib/transjakarta-json-service';
+import { transjakartaCSVService } from '@/lib/transjakarta-csv-service';
 
 interface BusArrival {
   busId: string;
@@ -32,144 +34,176 @@ interface BusArrival {
 interface StopSchedule {
   stopId: string;
   stopName: string;
-  arrivals: BusArrival[];
   averageWaitTime: number;
-  crowdingLevel: 'low' | 'medium' | 'high';
+  crowdingLevel: 'low' | 'medium' | 'high' | 'unknown';
+  arrivals: BusArrival[];
 }
 
 const RealTimeSchedules: React.FC = () => {
-  const [selectedStop, setSelectedStop] = useState<string>('BS001');
+  const [selectedStop, setSelectedStop] = useState<string>('');
   const [schedules, setSchedules] = useState<StopSchedule[]>([]);
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   const [autoUpdate, setAutoUpdate] = useState(true);
   const [query, setQuery] = useState('');
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
-  // Generate realistic schedule data
+  // Load GTFS data and generate realistic schedule data
   useEffect(() => {
-    const generateScheduleData = () => {
-      const currentTime = new Date();
-      const stops: StopSchedule[] = [
-        {
-          stopId: 'BS001',
-          stopName: 'Halte Bundaran HI',
-          averageWaitTime: 8.5,
-          crowdingLevel: 'high',
-          arrivals: []
-        },
-        {
-          stopId: 'BS002',
-          stopName: 'Halte Monas',
-          averageWaitTime: 12.3,
-          crowdingLevel: 'medium',
-          arrivals: []
-        },
-        {
-          stopId: 'BS003',
-          stopName: 'Halte Senayan',
-          averageWaitTime: 6.2,
-          crowdingLevel: 'high',
-          arrivals: []
-        },
-        {
-          stopId: 'BS004',
-          stopName: 'Halte Blok M',
-          averageWaitTime: 9.8,
-          crowdingLevel: 'medium',
-          arrivals: []
-        },
-        {
-          stopId: 'BS005',
-          stopName: 'Halte Kuningan',
-          averageWaitTime: 11.1,
-          crowdingLevel: 'low',
-          arrivals: []
-        },
-        {
-          stopId: 'BS006',
-          stopName: 'Halte Kota',
-          averageWaitTime: 10.4,
-          crowdingLevel: 'medium',
-          arrivals: []
-        }
-      ];
-
-      // Generate arrivals for each stop
-      stops.forEach(stop => {
-        const arrivals: BusArrival[] = [];
+    const loadGTFSData = async () => {
+      try {
+        // Try to load JSON data first
+        let dataStops: any[] = [];
+        let dataRoutes: any[] = [];
         
-        for (let i = 0; i < 8; i++) {
-          const scheduledMinutes = 5 + (i * 12) + Math.random() * 4;
-          const scheduledTime = new Date(currentTime.getTime() + scheduledMinutes * 60000);
-          
-          // Calculate realistic delays based on traffic and crowding
-          const baseDelay = stop.crowdingLevel === 'high' ? 3 : 
-                           stop.crowdingLevel === 'medium' ? 1 : 0;
-          const delay = Math.round(baseDelay + (Math.random() * 6 - 2));
-          
-          const estimatedTime = new Date(scheduledTime.getTime() + delay * 60000);
-          
-          // Determine status based on time
-          let status: BusArrival['status'] = 'scheduled';
-          if (scheduledMinutes <= 2) {
-            status = 'approaching';
-          } else if (scheduledMinutes <= 0) {
-            status = delay > 2 ? 'delayed' : 'arrived';
-          } else if (delay > 5) {
-            status = 'delayed';
-          }
-
-          const routes = ['Koridor 1', 'Koridor 2', 'Koridor 3', 'Koridor 4'];
-          const route = routes[i % routes.length];
-          
-          const occupancy = Math.round(30 + Math.random() * 120);
-          const capacity = 150;
-          const confidence = Math.round(85 + Math.random() * 15);
-
-          arrivals.push({
-            busId: `BUS${String(i + 1).padStart(3, '0')}`,
-            route,
-            scheduledTime: scheduledTime.toLocaleTimeString('en-US', { 
-              hour: '2-digit', 
-              minute: '2-digit' 
-            }),
-            estimatedTime: estimatedTime.toLocaleTimeString('en-US', { 
-              hour: '2-digit', 
-              minute: '2-digit' 
-            }),
-            delay,
-            occupancy,
-            capacity,
-            confidence,
-            status
-          });
+        try {
+          await transjakartaJSONService.loadData();
+          dataStops = transjakartaJSONService.getStopsByCorridor("2");
+          dataRoutes = transjakartaJSONService.getRoutesByCorridor("2");
+          console.log('Loaded data from JSON service - stops:', dataStops.length, 'routes:', dataRoutes.length);
+        } catch (jsonError) {
+          console.log('JSON service failed, trying CSV service...');
         }
+        
+        // If no data from JSON, try CSV service
+        if (dataStops.length === 0) {
+          try {
+            await transjakartaCSVService.loadCSVData();
+            const csvStops = transjakartaCSVService.getStops();
+            const csvRoutes = transjakartaCSVService.getRoutes();
+            console.log('Loaded data from CSV service - stops:', csvStops.length, 'routes:', csvRoutes.length);
+            
+            if (csvStops.length > 0) {
+              dataStops = csvStops.map(stop => ({
+                id: stop.id,
+                name: stop.name,
+                crowding: stop.crowding
+              }));
+              dataRoutes = csvRoutes;
+            }
+          } catch (csvError) {
+            console.error('CSV service also failed:', csvError);
+          }
+        }
+        
+        // Only Corridor 2 route
+        const realRoutes = ['2'];
 
-        stop.arrivals = arrivals.sort((a, b) => {
-          const timeA = new Date(`2024-01-01 ${a.estimatedTime}`).getTime();
-          const timeB = new Date(`2024-01-01 ${b.estimatedTime}`).getTime();
-          return timeA - timeB;
-        });
-      });
+        const generateScheduleData = () => {
+          const currentTime = new Date();
+          const stops: StopSchedule[] = dataStops.map(stop => {
+            const crowdingLevel = stop.crowding;
+            return {
+              stopId: stop.id,
+              stopName: stop.name,
+              averageWaitTime: Math.round(5 + Math.random() * 15),
+              crowdingLevel: crowdingLevel,
+              arrivals: []
+            };
+          });
 
-      setSchedules(stops);
-      setLastUpdated(new Date());
+          // Generate arrivals for each stop
+          stops.forEach(stop => {
+            const arrivals: BusArrival[] = [];
+            
+            for (let i = 0; i < 8; i++) {
+              const scheduledMinutes = 5 + (i * 12) + Math.random() * 4;
+              const scheduledTime = new Date(currentTime.getTime() + scheduledMinutes * 60000);
+              
+              // Calculate realistic delays based on traffic and crowding
+              const baseDelay = (stop.crowdingLevel ?? 'unknown') === 'high' ? 3 : 
+                               (stop.crowdingLevel ?? 'unknown') === 'medium' ? 1 : 0;
+              const delay = Math.round(baseDelay + (Math.random() * 6 - 2));
+              
+              const estimatedTime = new Date(scheduledTime.getTime() + delay * 60000);
+              
+              // Determine status based on time
+              let status: BusArrival['status'] = 'scheduled';
+              if (scheduledMinutes <= 2) {
+                status = 'approaching';
+              } else if (scheduledMinutes <= 0) {
+                status = delay > 2 ? 'delayed' : 'arrived';
+              } else if (delay > 5) {
+                status = 'delayed';
+              }
+
+              // Use real Transjakarta route numbers
+              const route = realRoutes[i % realRoutes.length];
+              
+              const occupancy = Math.round(30 + Math.random() * 120);
+              const capacity = 150;
+              const confidence = Math.round(85 + Math.random() * 15);
+
+              arrivals.push({
+                busId: `BUS${String(i + 1).padStart(3, '0')}`,
+                route: `Koridor ${route}`,
+                scheduledTime: scheduledTime.toLocaleTimeString('en-US', { 
+                  hour: '2-digit', 
+                  minute: '2-digit' 
+                }),
+                estimatedTime: estimatedTime.toLocaleTimeString('en-US', { 
+                  hour: '2-digit', 
+                  minute: '2-digit' 
+                }),
+                delay,
+                occupancy,
+                capacity,
+                confidence,
+                status
+              });
+            }
+
+            stop.arrivals = arrivals.sort((a, b) => {
+              const timeA = new Date(`2024-01-01 ${a.estimatedTime}`).getTime();
+              const timeB = new Date(`2024-01-01 ${b.estimatedTime}`).getTime();
+              return timeA - timeB;
+            });
+          });
+
+          setSchedules(stops);
+          setLastUpdated(new Date());
+          
+          // Set first stop as selected if none selected
+          if (!selectedStop && stops.length > 0) {
+            setSelectedStop(stops[0].stopId);
+          }
+          
+          setIsDataLoaded(true);
+        };
+
+        generateScheduleData();
+
+        // Auto-update every 30 seconds if enabled
+        const interval = autoUpdate ? setInterval(generateScheduleData, 30000) : null;
+
+        return () => {
+          if (interval) clearInterval(interval);
+        };
+      } catch (error) {
+        console.error('Failed to load GTFS data:', error);
+      }
     };
 
-    generateScheduleData();
-
-    // Auto-update every 30 seconds if enabled
-    const interval = autoUpdate ? setInterval(generateScheduleData, 30000) : null;
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [autoUpdate]);
+    loadGTFSData();
+    }, [autoUpdate, selectedStop]);
 
   const selectedStopData = schedules.find(s => s.stopId === selectedStop);
   const filteredStops = schedules.filter(s =>
-    s.stopName.toLowerCase().includes(query.toLowerCase()) ||
-    s.stopId.toLowerCase().includes(query.toLowerCase())
+    (s.stopName?.toLowerCase() || '').includes(query.toLowerCase()) ||
+    (s.stopId?.toLowerCase() || '').includes(query.toLowerCase())
   );
+
+  if (!isDataLoaded) {
+    return (
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-transit-green mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading Transjakarta schedules...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -210,13 +244,13 @@ const RealTimeSchedules: React.FC = () => {
         <div className="text-center mb-12">
           <Badge className="mb-4">
             <Zap className="w-3 h-3 mr-1" />
-            Live Schedule Crowding
+            Corridor 2 Live Schedules
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Stop Schedules & Crowding
+            Corridor 2 Stop Schedules & Crowding
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Search any stop to view upcoming arrivals and crowding levels.
+            View upcoming arrivals and crowding levels for Corridor 2 stops.
           </p>
         </div>
 
@@ -318,11 +352,11 @@ const RealTimeSchedules: React.FC = () => {
                     </div>
                     <div className="text-center">
                       <Badge className={`text-sm ${
-                        selectedStopData.crowdingLevel === 'high' ? 'bg-red-500/20 text-red-500 border-red-500/30' :
-                        selectedStopData.crowdingLevel === 'medium' ? 'bg-transit-orange/20 text-transit-orange border-transit-orange/30' :
+                        (selectedStopData?.crowdingLevel ?? 'unknown') === 'high' ? 'bg-red-500/20 text-red-500 border-red-500/30' :
+                        (selectedStopData?.crowdingLevel ?? 'unknown') === 'medium' ? 'bg-transit-orange/20 text-transit-orange border-transit-orange/30' :
                         'bg-transit-green/20 text-transit-green border-transit-green/30'
                       }`}>
-                        {selectedStopData.crowdingLevel} crowding
+                        {(selectedStopData?.crowdingLevel ?? 'unknown')} crowding
                       </Badge>
                     </div>
                   </div>

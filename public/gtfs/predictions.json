@@ -1,0 +1,171 @@
+{
+  "predictions": {
+    "timestamp": "2024-01-15T10:30:00Z",
+    "time_horizon_minutes": 30,
+    "stops": [
+      {
+        "stop_id": "BLK_M",
+        "predictions": {
+          "crowding": {
+            "current": "high",
+            "predicted_15min": "high",
+            "predicted_30min": "medium",
+            "confidence": 0.85
+          },
+          "bus_count": {
+            "current": 3,
+            "predicted_15min": 4,
+            "predicted_30min": 2,
+            "confidence": 0.92
+          },
+          "lateness": {
+            "current": 5,
+            "predicted_15min": 8,
+            "predicted_30min": 3,
+            "confidence": 0.78
+          }
+        }
+      },
+      {
+        "stop_id": "BUNDARAN_HI",
+        "predictions": {
+          "crowding": {
+            "current": "medium",
+            "predicted_15min": "high",
+            "predicted_30min": "high",
+            "confidence": 0.88
+          },
+          "bus_count": {
+            "current": 2,
+            "predicted_15min": 3,
+            "predicted_30min": 4,
+            "confidence": 0.90
+          },
+          "lateness": {
+            "current": -2,
+            "predicted_15min": 2,
+            "predicted_30min": 5,
+            "confidence": 0.82
+          }
+        }
+      },
+      {
+        "stop_id": "MONAS",
+        "predictions": {
+          "crowding": {
+            "current": "high",
+            "predicted_15min": "high",
+            "predicted_30min": "medium",
+            "confidence": 0.91
+          },
+          "bus_count": {
+            "current": 5,
+            "predicted_15min": 6,
+            "predicted_30min": 4,
+            "confidence": 0.94
+          },
+          "lateness": {
+            "current": 3,
+            "predicted_15min": 6,
+            "predicted_30min": 4,
+            "confidence": 0.79
+          }
+        }
+      },
+      {
+        "stop_id": "HARMONI",
+        "predictions": {
+          "crowding": {
+            "current": "high",
+            "predicted_15min": "high",
+            "predicted_30min": "high",
+            "confidence": 0.93
+          },
+          "bus_count": {
+            "current": 8,
+            "predicted_15min": 9,
+            "predicted_30min": 7,
+            "confidence": 0.96
+          },
+          "lateness": {
+            "current": 7,
+            "predicted_15min": 10,
+            "predicted_30min": 8,
+            "confidence": 0.85
+          }
+        }
+      },
+      {
+        "stop_id": "KUNINGAN",
+        "predictions": {
+          "crowding": {
+            "current": "low",
+            "predicted_15min": "medium",
+            "predicted_30min": "medium",
+            "confidence": 0.76
+          },
+          "bus_count": {
+            "current": 1,
+            "predicted_15min": 2,
+            "predicted_30min": 2,
+            "confidence": 0.84
+          },
+          "lateness": {
+            "current": -1,
+            "predicted_15min": 1,
+            "predicted_30min": 2,
+            "confidence": 0.71
+          }
+        }
+      }
+    ],
+    "routes": [
+      {
+        "route_id": "K1",
+        "predictions": {
+          "total_buses": {
+            "current": 12,
+            "predicted_15min": 14,
+            "predicted_30min": 11,
+            "confidence": 0.89
+          },
+          "average_delay": {
+            "current": 4.2,
+            "predicted_15min": 6.1,
+            "predicted_30min": 3.8,
+            "confidence": 0.82
+          },
+          "crowding_score": {
+            "current": 0.75,
+            "predicted_15min": 0.82,
+            "predicted_30min": 0.68,
+            "confidence": 0.87
+          }
+        }
+      },
+      {
+        "route_id": "K2",
+        "predictions": {
+          "total_buses": {
+            "current": 8,
+            "predicted_15min": 9,
+            "predicted_30min": 8,
+            "confidence": 0.91
+          },
+          "average_delay": {
+            "current": 2.1,
+            "predicted_15min": 3.5,
+            "predicted_30min": 2.8,
+            "confidence": 0.78
+          },
+          "crowding_score": {
+            "current": 0.45,
+            "predicted_15min": 0.52,
+            "predicted_30min": 0.48,
+            "confidence": 0.83
+          }
+        }
+      }
+    ]
+  }
+}

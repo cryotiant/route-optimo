@@ -92,7 +92,6 @@ schedule_df['predicted_passengers'] = schedule_predictions.round().astype(int)
 stops_predictions = []
 for stop_name in schedule_df['stop_name'].unique():
     stop_rows = schedule_df[schedule_df['stop_name'] == stop_name]
-    # Use the latest prediction for this stop
     last_row = stop_rows.iloc[-1]
     passengers = int(last_row['predicted_passengers'])
     # Simple crowding logic
@@ -108,20 +107,12 @@ for stop_name in schedule_df['stop_name'].unique():
             "crowding": {
                 "current": crowding,
                 "predicted_15min": crowding,
-                "predicted_30min": crowding,
-                "confidence": 0.85
+                "predicted_30min": crowding
             },
             "bus_count": {
                 "current": 1,
                 "predicted_15min": 1,
-                "predicted_30min": 1,
-                "confidence": 0.9
-            },
-            "lateness": {
-                "current": 0,
-                "predicted_15min": 0,
-                "predicted_30min": 0,
-                "confidence": 0.8
+                "predicted_30min": 1
             }
         }
     })

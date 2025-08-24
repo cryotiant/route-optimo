@@ -444,7 +444,6 @@ const AllStopsList: React.FC = () => {
                         <TrendingUp className="w-4 h-4 text-muted-foreground" />
                         <span className="text-sm font-medium">Predictions ({selectedTimeHorizon})</span>
                       </div>
-                      
                       <div className="grid grid-cols-2 gap-3 text-sm">
                         <div>
                           <span className="text-muted-foreground">Crowding:</span>
@@ -455,16 +454,6 @@ const AllStopsList: React.FC = () => {
                         <div>
                           <span className="text-muted-foreground">Buses:</span>
                           <span className="ml-1 font-medium">{prediction.predictions?.bus_count?.[timeKey] ?? 'N/A'}</span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">Delay:</span>
-                          <span className={`ml-1 font-medium ${(prediction.predictions?.lateness?.[timeKey] ?? 0) > 0 ? 'text-red-500' : 'text-transit-green'}`}>
-                            {(prediction.predictions?.lateness?.[timeKey] ?? 0) > 0 ? '+' : ''}{prediction.predictions?.lateness?.[timeKey] ?? 0} min
-                          </span>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">Confidence:</span>
-                          <span className="ml-1 font-medium">{Math.round((prediction.predictions?.crowding?.confidence ?? 0) * 100)}%</span>
                         </div>
                       </div>
                     </div>

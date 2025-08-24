@@ -6,6 +6,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
+import json
+import os
 
 # 1. Load the data and drop irrelevant columns
 # 'date' and 'time' are string-based and not useful for the model.
@@ -85,6 +87,56 @@ schedule_df = pd.DataFrame(schedule_data)
 # Make predictions and add them to the schedule DataFrame
 schedule_predictions = model_pipeline.predict(schedule_df)
 schedule_df['predicted_passengers'] = schedule_predictions.round().astype(int)
+
+# --- Build predictions for each stop ---
+stops_predictions = []
+for stop_name in schedule_df['stop_name'].unique():
+    stop_rows = schedule_df[schedule_df['stop_name'] == stop_name]
+    # Use the latest prediction for this stop
+    last_row = stop_rows.iloc[-1]
+    passengers = int(last_row['predicted_passengers'])
+    # Simple crowding logic
+    if passengers > 60:
+        crowding = 'high'
+    elif passengers > 30:
+        crowding = 'medium'
+    else:
+        crowding = 'low'
+    stops_predictions.append({
+        "stop_id": stop_name.replace(' ', '_').upper(),
+        "predictions": {
+            "crowding": {
+                "current": crowding,
+                "predicted_15min": crowding,
+                "predicted_30min": crowding,
+                "confidence": 0.85
+            },
+            "bus_count": {
+                "current": 1,
+                "predicted_15min": 1,
+                "predicted_30min": 1,
+                "confidence": 0.9
+            },
+            "lateness": {
+                "current": 0,
+                "predicted_15min": 0,
+                "predicted_30min": 0,
+                "confidence": 0.8
+            }
+        }
+    })
+
+output = {
+    "predictions": {
+        "timestamp": pd.Timestamp.now().isoformat(),
+        "time_horizon_minutes": 30,
+        "stops": stops_predictions
+    }
+}
+os.makedirs("public/gtfs", exist_ok=True)
+with open("public/gtfs/predictions.json", "w") as f:
+    json.dump(output, f, indent=2)
+print("Predictions written to public/gtfs/predictions.json")
 
 # 10. Print the predicted bus schedule
 print("Today is Monday, August 25, 2025")

@@ -34,6 +34,19 @@ const AllStopsList: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedStopId, setSelectedStopId] = useState<string | null>(null);
+  const [predictions, setPredictions] = useState<any[]>([]);
+
+  useEffect(() => {
+    // Fetch predictions from ML output
+    fetch('/gtfs/predictions.json')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.predictions && data.predictions.stops) {
+          setPredictions(data.predictions.stops);
+        }
+      })
+      .catch(() => setPredictions([]));
+  }, []);
 
   useEffect(() => {
     const loadStops = async () => {
@@ -206,9 +219,14 @@ const AllStopsList: React.FC = () => {
   };
 
   const getPredictionForStop = (stopId: string) => {
+    // Try to find ML prediction for this stop
+    const pred = predictions.find((p: any) => (p.stop_id || p.stopId || '').toLowerCase() === stopId.toLowerCase());
+    if (pred && pred.predictions) {
+      return { predictions: pred.predictions };
+    }
+    // Fallback to previous logic
     const stop = transjakartaJSONService.getStopById(stopId);
     if (!stop) return null;
-    
     return {
       predictions: {
         crowding: {
